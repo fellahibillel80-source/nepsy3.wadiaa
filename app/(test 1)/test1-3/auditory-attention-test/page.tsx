@@ -573,6 +573,13 @@ export default function AuditoryAttentionTest() {
     }
   }, [currentStage, getCurrentStageData, playSfx, startWordSequence]);
 
+  // Auto-start test on load
+  useEffect(() => {
+    if (childData && phase === "instructions") {
+      void startTest();
+    }
+  }, [childData, phase, startTest]);
+
   // pause / resume
   const pauseTest = useCallback(() => {
     setIsPaused(true);
@@ -1180,8 +1187,8 @@ export default function AuditoryAttentionTest() {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-                <p className="text-sm text-blue-800 mb-4">
+              <div className="bg-brand-50 p-4 rounded-lg border border-brand-200">
+                <p className="text-sm text-brand-800 mb-4">
                   ستسمع سلسلة من الكلمات مختلفة عن السلسلة الأولى، ولكن هذه
                   المرة يجب عليك اتباع قواعد جديدة. شاهد العرض التوضيحي
                   التلقائي:
@@ -1310,11 +1317,11 @@ export default function AuditoryAttentionTest() {
                 </div>
               </div>
 
-              <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-                <h3 className="font-semibold text-blue-900 mb-2">
+              <div className="bg-brand-50 p-4 rounded-lg border border-brand-200">
+                <h3 className="font-semibold text-brand-900 mb-2">
                   مستعد للمرحلة الثانية؟
                 </h3>
-                <p className="text-sm text-blue-800">
+                <p className="text-sm text-brand-800">
                   المرحلة الثانية لها قواعد مختلفة - ستحتاج إلى تبديل الألوان
                   للكلمات الحمراء والصفراء!
                 </p>
@@ -1381,7 +1388,7 @@ export default function AuditoryAttentionTest() {
     <div className="min-h-screen bg-background p-8" dir="rtl">
       <div className="max-w-6xl mx-auto">
         <div className="mb-6 flex items-center justify-between">
-          <Button onClick={() => router.back()} variant="ghost">
+          <Button onClick={() => router.push("/tests")} variant="ghost">
             <ArrowLeft className="w-4 h-4 ml-2" /> العودة إلى الاختبارات
           </Button>
 

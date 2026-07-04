@@ -135,9 +135,12 @@ export default function TestInstructionsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-brand-50 to-brand-100/50 flex items-center justify-center p-4">
       <Card className="w-full max-w-2xl shadow-lg">
-        <CardHeader className="text-center">
+        <CardHeader className="text-center relative">
+          <Link href="/tests" className="absolute top-4 left-4">
+            <Button variant="outline" size="sm">الرجوع لقائمة الاختبارات</Button>
+          </Link>
           <CardTitle className="text-2xl font-bold text-gray-800">
             مرحباً {childData.firstName}!
           </CardTitle>
@@ -149,16 +152,16 @@ export default function TestInstructionsPage() {
         <CardContent className="space-y-6">
           {/* Rich RTL instructions block — replace the old blue box with this */}
           <div
-            className="bg-gradient-to-r from-blue-50 to-white p-6 rounded-2xl shadow-sm border border-blue-100 text-right"
+            className="bg-gradient-to-r from-brand-50 to-white p-6 rounded-2xl shadow-sm border border-brand-100 text-right"
             dir="rtl"
             role="region"
             aria-label="تعليمات الاختبار المفصلة"
           >
-            <h3 className="font-bold text-blue-800 mb-4 text-lg">
+            <h3 className="font-bold text-brand-800 mb-4 text-lg">
               تعليمات الاختبار:
             </h3>
 
-            <div className="space-y-3 text-blue-700 text-sm leading-relaxed">
+            <div className="space-y-3 text-brand-700 text-sm leading-relaxed">
               <p className="font-semibold">
                 1- اختبار الانتباه : يحتوي هذا الاختبار على جزئين:
               </p>

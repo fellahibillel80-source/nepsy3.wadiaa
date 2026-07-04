@@ -1,0 +1,262 @@
+{
+  "targets": [
+    {
+      "filename": "WhatsApp Image 2026-07-01 at 3.20.38 PM (1).jpeg",
+      "size": 14733,
+      "src": "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.38 PM (1).jpeg"
+    },
+    {
+      "filename": "WhatsApp Image 2026-07-01 at 3.20.38 PM (2).jpeg",
+      "size": 15348,
+      "src": "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.38 PM (2).jpeg"
+    },
+    {
+      "filename": "WhatsApp Image 2026-07-01 at 3.20.38 PM (3).jpeg",
+      "size": 13930,
+      "src": "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.38 PM (3).jpeg"
+    },
+    {
+      "filename": "WhatsApp Image 2026-07-01 at 3.20.38 PM (4).jpeg",
+      "size": 12037,
+      "src": "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.38 PM (4).jpeg"
+    },
+    {
+      "filename": "WhatsApp Image 2026-07-01 at 3.20.38 PM.jpeg",
+      "size": 16218,
+      "src": "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.38 PM.jpeg"
+    },
+    {
+      "filename": "WhatsApp Image 2026-07-01 at 3.20.39 PM (1).jpeg",
+      "size": 10794,
+      "src": "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.39 PM (1).jpeg"
+    },
+    {
+      "filename": "WhatsApp Image 2026-07-01 at 3.20.39 PM (2).jpeg",
+      "size": 11845,
+      "src": "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.39 PM (2).jpeg"
+    },
+    {
+      "filename": "WhatsApp Image 2026-07-01 at 3.20.39 PM (3).jpeg",
+      "size": 11998,
+      "src": "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.39 PM (3).jpeg"
+    },
+    {
+      "filename": "WhatsApp Image 2026-07-01 at 3.20.39 PM (4).jpeg",
+      "size": 7336,
+      "src": "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.39 PM (4).jpeg"
+    },
+    {
+      "filename": "WhatsApp Image 2026-07-01 at 3.20.39 PM (5).jpeg",
+      "size": 8057,
+      "src": "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.39 PM (5).jpeg"
+    },
+    {
+      "filename": "WhatsApp Image 2026-07-01 at 3.20.39 PM.jpeg",
+      "size": 16562,
+      "src": "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.39 PM.jpeg"
+    },
+    {
+      "filename": "WhatsApp Image 2026-07-01 at 3.20.40 PM (1).jpeg",
+      "size": 15774,
+      "src": "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.40 PM (1).jpeg"
+    },
+    {
+      "filename": "WhatsApp Image 2026-07-01 at 3.20.40 PM (2).jpeg",
+      "size": 14953,
+      "src": "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.40 PM (2).jpeg"
+    },
+    {
+      "filename": "WhatsApp Image 2026-07-01 at 3.20.40 PM (3).jpeg",
+      "size": 13186,
+      "src": "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.40 PM (3).jpeg"
+    },
+    {
+      "filename": "WhatsApp Image 2026-07-01 at 3.20.40 PM (4).jpeg",
+      "size": 14371,
+      "src": "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.40 PM (4).jpeg"
+    },
+    {
+      "filename": "WhatsApp Image 2026-07-01 at 3.20.40 PM.jpeg",
+      "size": 10415,
+      "src": "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.40 PM.jpeg"
+    }
+  ],
+  "planches": [
+    {
+      "plancheNum": 1,
+      "options": [
+        "/visual-memory/photos experimentales/Planche 1/WhatsApp Image 2026-07-01 at 3.25.42 PM.jpeg",
+        "/visual-memory/photos experimentales/Planche 1/WhatsApp Image 2026-07-01 at 3.25.43 PM (1).jpeg",
+        "/visual-memory/photos experimentales/Planche 1/WhatsApp Image 2026-07-01 at 3.25.43 PM.jpeg"
+      ],
+      "correctSrc": "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.38 PM (1).jpeg",
+      "targetFilename": "WhatsApp Image 2026-07-01 at 3.20.38 PM (1).jpeg",
+      "correctSize": 14733
+    },
+    {
+      "plancheNum": 2,
+      "options": [
+        "/visual-memory/photos experimentales/Planche 2/WhatsApp Image 2026-07-01 at 3.26.09 PM (1).jpeg",
+        "/visual-memory/photos experimentales/Planche 2/WhatsApp Image 2026-07-01 at 3.26.09 PM (2).jpeg",
+        "/visual-memory/photos experimentales/Planche 2/WhatsApp Image 2026-07-01 at 3.26.09 PM.jpeg"
+      ],
+      "correctSrc": "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.39 PM (5).jpeg",
+      "targetFilename": "WhatsApp Image 2026-07-01 at 3.20.39 PM (5).jpeg",
+      "correctSize": 8057
+    },
+    {
+      "plancheNum": 3,
+      "options": [
+        "/visual-memory/photos experimentales/Planche 3/WhatsApp Image 2026-07-01 at 3.26.35 PM (1).jpeg",
+        "/visual-memory/photos experimentales/Planche 3/WhatsApp Image 2026-07-01 at 3.26.35 PM (2).jpeg",
+        "/visual-memory/photos experimentales/Planche 3/WhatsApp Image 2026-07-01 at 3.26.35 PM.jpeg"
+      ],
+      "correctSrc": "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.40 PM.jpeg",
+      "targetFilename": "WhatsApp Image 2026-07-01 at 3.20.40 PM.jpeg",
+      "correctSize": 10415
+    },
+    {
+      "plancheNum": 4,
+      "options": [
+        "/visual-memory/photos experimentales/Planche 4/WhatsApp Image 2026-07-01 at 3.27.37 PM (1).jpeg",
+        "/visual-memory/photos experimentales/Planche 4/WhatsApp Image 2026-07-01 at 3.27.37 PM (2).jpeg",
+        "/visual-memory/photos experimentales/Planche 4/WhatsApp Image 2026-07-01 at 3.27.37 PM.jpeg"
+      ],
+      "correctSrc": "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.38 PM (4).jpeg",
+      "targetFilename": "WhatsApp Image 2026-07-01 at 3.20.38 PM (4).jpeg",
+      "correctSize": 12037
+    },
+    {
+      "plancheNum": 5,
+      "options": [
+        "/visual-memory/photos experimentales/Planche 5/WhatsApp Image 2026-07-01 at 3.28.02 PM.jpeg",
+        "/visual-memory/photos experimentales/Planche 5/WhatsApp Image 2026-07-01 at 3.28.03 PM (1).jpeg",
+        "/visual-memory/photos experimentales/Planche 5/WhatsApp Image 2026-07-01 at 3.28.03 PM.jpeg"
+      ],
+      "correctSrc": "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.39 PM.jpeg",
+      "targetFilename": "WhatsApp Image 2026-07-01 at 3.20.39 PM.jpeg",
+      "correctSize": 16562
+    },
+    {
+      "plancheNum": 6,
+      "options": [
+        "/visual-memory/photos experimentales/Planche 6/WhatsApp Image 2026-07-01 at 3.28.39 PM (1).jpeg",
+        "/visual-memory/photos experimentales/Planche 6/WhatsApp Image 2026-07-01 at 3.28.39 PM (2).jpeg",
+        "/visual-memory/photos experimentales/Planche 6/WhatsApp Image 2026-07-01 at 3.28.39 PM.jpeg"
+      ],
+      "correctSrc": "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.38 PM.jpeg",
+      "targetFilename": "WhatsApp Image 2026-07-01 at 3.20.38 PM.jpeg",
+      "correctSize": 16218
+    },
+    {
+      "plancheNum": 7,
+      "options": [
+        "/visual-memory/photos experimentales/Planche 7/WhatsApp Image 2026-07-01 at 3.29.05 PM (1).jpeg",
+        "/visual-memory/photos experimentales/Planche 7/WhatsApp Image 2026-07-01 at 3.29.05 PM (2).jpeg",
+        "/visual-memory/photos experimentales/Planche 7/WhatsApp Image 2026-07-01 at 3.29.05 PM.jpeg"
+      ],
+      "correctSrc": "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.40 PM (3).jpeg",
+      "targetFilename": "WhatsApp Image 2026-07-01 at 3.20.40 PM (3).jpeg",
+      "correctSize": 13186
+    },
+    {
+      "plancheNum": 8,
+      "options": [
+        "/visual-memory/photos experimentales/Planche 8/WhatsApp Image 2026-07-01 at 3.29.41 PM (1).jpeg",
+        "/visual-memory/photos experimentales/Planche 8/WhatsApp Image 2026-07-01 at 3.29.41 PM.jpeg",
+        "/visual-memory/photos experimentales/Planche 8/WhatsApp Image 2026-07-01 at 3.29.42 PM.jpeg"
+      ],
+      "correctSrc": "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.40 PM (2).jpeg",
+      "targetFilename": "WhatsApp Image 2026-07-01 at 3.20.40 PM (2).jpeg",
+      "correctSize": 14953
+    },
+    {
+      "plancheNum": 9,
+      "options": [
+        "/visual-memory/photos experimentales/Planche 9/WhatsApp Image 2026-07-01 at 3.30.59 PM (1).jpeg",
+        "/visual-memory/photos experimentales/Planche 9/WhatsApp Image 2026-07-01 at 3.30.59 PM (2).jpeg",
+        "/visual-memory/photos experimentales/Planche 9/WhatsApp Image 2026-07-01 at 3.30.59 PM.jpeg"
+      ],
+      "correctSrc": "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.39 PM (2).jpeg",
+      "targetFilename": "WhatsApp Image 2026-07-01 at 3.20.39 PM (2).jpeg",
+      "correctSize": 11845
+    },
+    {
+      "plancheNum": 10,
+      "options": [
+        "/visual-memory/photos experimentales/Planche 10/WhatsApp Image 2026-07-01 at 3.31.23 PM (1).jpeg",
+        "/visual-memory/photos experimentales/Planche 10/WhatsApp Image 2026-07-01 at 3.31.23 PM (2).jpeg",
+        "/visual-memory/photos experimentales/Planche 10/WhatsApp Image 2026-07-01 at 3.31.23 PM.jpeg"
+      ],
+      "correctSrc": null,
+      "targetFilename": "UNKNOWN",
+      "correctSize": 0
+    },
+    {
+      "plancheNum": 11,
+      "options": [
+        "/visual-memory/photos experimentales/Planche 11/WhatsApp Image 2026-07-01 at 3.31.44 PM (1).jpeg",
+        "/visual-memory/photos experimentales/Planche 11/WhatsApp Image 2026-07-01 at 3.31.44 PM (2).jpeg",
+        "/visual-memory/photos experimentales/Planche 11/WhatsApp Image 2026-07-01 at 3.31.44 PM.jpeg"
+      ],
+      "correctSrc": "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.39 PM (4).jpeg",
+      "targetFilename": "WhatsApp Image 2026-07-01 at 3.20.39 PM (4).jpeg",
+      "correctSize": 7336
+    },
+    {
+      "plancheNum": 12,
+      "options": [
+        "/visual-memory/photos experimentales/Planche 12/WhatsApp Image 2026-07-01 at 3.33.26 PM (1).jpeg",
+        "/visual-memory/photos experimentales/Planche 12/WhatsApp Image 2026-07-01 at 3.33.26 PM (2).jpeg",
+        "/visual-memory/photos experimentales/Planche 12/WhatsApp Image 2026-07-01 at 3.33.26 PM.jpeg"
+      ],
+      "correctSrc": "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.38 PM (2).jpeg",
+      "targetFilename": "WhatsApp Image 2026-07-01 at 3.20.38 PM (2).jpeg",
+      "correctSize": 15348
+    },
+    {
+      "plancheNum": 13,
+      "options": [
+        "/visual-memory/photos experimentales/Planche 13/WhatsApp Image 2026-07-01 at 3.34.36 PM (1).jpeg",
+        "/visual-memory/photos experimentales/Planche 13/WhatsApp Image 2026-07-01 at 3.34.36 PM (2).jpeg",
+        "/visual-memory/photos experimentales/Planche 13/WhatsApp Image 2026-07-01 at 3.34.36 PM.jpeg"
+      ],
+      "correctSrc": "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.39 PM (1).jpeg",
+      "targetFilename": "WhatsApp Image 2026-07-01 at 3.20.39 PM (1).jpeg",
+      "correctSize": 10794
+    },
+    {
+      "plancheNum": 14,
+      "options": [
+        "/visual-memory/photos experimentales/Planche 14/WhatsApp Image 2026-07-01 at 3.35.01 PM (1).jpeg",
+        "/visual-memory/photos experimentales/Planche 14/WhatsApp Image 2026-07-01 at 3.35.01 PM (2).jpeg",
+        "/visual-memory/photos experimentales/Planche 14/WhatsApp Image 2026-07-01 at 3.35.01 PM.jpeg"
+      ],
+      "correctSrc": "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.39 PM (3).jpeg",
+      "targetFilename": "WhatsApp Image 2026-07-01 at 3.20.39 PM (3).jpeg",
+      "correctSize": 11998
+    },
+    {
+      "plancheNum": 15,
+      "options": [
+        "/visual-memory/photos experimentales/Planche 15/WhatsApp Image 2026-07-01 at 3.35.36 PM (1).jpeg",
+        "/visual-memory/photos experimentales/Planche 15/WhatsApp Image 2026-07-01 at 3.35.36 PM.jpeg",
+        "/visual-memory/photos experimentales/Planche 15/WhatsApp Image 2026-07-01 at 3.35.37 PM.jpeg"
+      ],
+      "correctSrc": "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.40 PM (1).jpeg",
+      "targetFilename": "WhatsApp Image 2026-07-01 at 3.20.40 PM (1).jpeg",
+      "correctSize": 15774
+    },
+    {
+      "plancheNum": 16,
+      "options": [
+        "/visual-memory/photos experimentales/Planche 16/WhatsApp Image 2026-07-01 at 3.35.59 PM.jpeg",
+        "/visual-memory/photos experimentales/Planche 16/WhatsApp Image 2026-07-01 at 3.36.00 PM (1).jpeg",
+        "/visual-memory/photos experimentales/Planche 16/WhatsApp Image 2026-07-01 at 3.36.00 PM.jpeg"
+      ],
+      "correctSrc": "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.38 PM (3).jpeg",
+      "targetFilename": "WhatsApp Image 2026-07-01 at 3.20.38 PM (3).jpeg",
+      "correctSize": 13930
+    }
+  ]
+}

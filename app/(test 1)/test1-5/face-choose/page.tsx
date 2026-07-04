@@ -15,19 +15,13 @@ import { ArrowLeft, Play } from "lucide-react";
 import { CircularProgress } from "@/components/ui/circular-progress";
 
 interface FaceRecognitionTestProps {
-  onBack: () => void;
-}
-
-interface PhotoData {
-  id: number;
-  src: string;
-  correctGender: "boy" | "girl";
+  onBack?: () => void;
 }
 
 interface TestResult {
   roundNumber: number;
-  selectedPhotoId: number | null;
-  correctPhotoId: number;
+  selectedPhotoSrc: string | null;
+  correctPhotoSrc: string;
   isCorrect: boolean | null;
   responseTime: number;
 }
@@ -36,10 +30,11 @@ export default function FaceRecognitionTest({
   onBack,
 }: FaceRecognitionTestProps): JSX.Element {
   const router = useRouter();
+  const handleBack = onBack || (() => router.push("/tests"));
   // phases
   const [phase, setPhase] = useState<
     "instructions" | "ready" | "running" | "photo-display" | "complete"
-  >("instructions");
+  >("photo-display");
 
   // rounds & timing
   const totalRounds = 16;
@@ -52,9 +47,9 @@ export default function FaceRecognitionTest({
   const [timeRemaining, setTimeRemaining] = useState<number>(5);
   const [startTime, setStartTime] = useState<number>(0);
 
-  // photos for current round + target id
-  const [currentPhotos, setCurrentPhotos] = useState<PhotoData[]>([]);
-  const [targetPhotoId, setTargetPhotoId] = useState<number>(0);
+  // photos for current round + target src
+  const [currentPhotos, setCurrentPhotos] = useState<string[]>([]);
+  const [targetPhotoSrc, setTargetPhotoSrc] = useState<string>("");
 
   // results
   const [results, setResults] = useState<TestResult[]>([]);
@@ -63,71 +58,163 @@ export default function FaceRecognitionTest({
   const intervalRef = useRef<number | null>(null);
   const audioIntervalRef = useRef<number | null>(null);
 
-  // choose-face intro audio (play when user clicks "ابدأ الاختبار")
+  // choose-face intro audio
   const chooseAudioRef = useRef<HTMLAudioElement | null>(null);
   const [introPlaying, setIntroPlaying] = useState<boolean>(false);
   const introPlayedRef = useRef<boolean>(false);
 
-  // keep a persistent banner visible once audio play has been attempted
+  // keep a persistent banner visible
   const [introBannerVisible, setIntroBannerVisible] = useState<boolean>(false);
 
-  // protect against double-clicks in a single round
+  // protect against double-clicks
   const roundLockedRef = useRef<boolean>(false);
 
-  // ---------- images ----------
-  const allPhotos: PhotoData[] = [
-    // targets 1..16
-    { id: 1, src: "/facetTest2/girl1.jpeg", correctGender: "girl" },
-    { id: 2, src: "/facetTest2/girl2.jpeg", correctGender: "girl" },
-    { id: 3, src: "/facetTest2/girl3.jpeg", correctGender: "girl" },
-    { id: 4, src: "/facetTest2/girl4.jpeg", correctGender: "girl" },
-    { id: 5, src: "/facetTest2/boy5.jpeg", correctGender: "boy" },
-    { id: 6, src: "/facetTest2/girl6.jpeg", correctGender: "girl" },
-    { id: 7, src: "/facetTest2/boy7.jpeg", correctGender: "boy" },
-    { id: 8, src: "/facetTest2/boy8.jpeg", correctGender: "boy" },
-    { id: 9, src: "/facetTest2/boy9.jpeg", correctGender: "boy" },
-    { id: 10, src: "/facetTest2/girl10.jpeg", correctGender: "girl" },
-    { id: 11, src: "/facetTest2/girl11.jpeg", correctGender: "girl" },
-    { id: 12, src: "/facetTest2/boy12.jpeg", correctGender: "boy" },
-    { id: 13, src: "/facetTest2/girl13.jpeg", correctGender: "girl" },
-    { id: 14, src: "/facetTest2/boy14.jpeg", correctGender: "boy" },
-    { id: 15, src: "/facetTest2/girl15.png", correctGender: "girl" },
-    { id: 16, src: "/facetTest2/girl16.png", correctGender: "girl" },
-
-    // distractors 17..49 (ensure they exist)
-    { id: 17, src: "/facetTest2/boy17.jpeg", correctGender: "boy" },
-    { id: 18, src: "/facetTest2/boy18.jpeg", correctGender: "boy" },
-    { id: 19, src: "/facetTest2/boy19.jpeg", correctGender: "boy" },
-    { id: 20, src: "/facetTest2/boy24.jpeg", correctGender: "boy" },
-    { id: 21, src: "/facetTest2/boy25.jpeg", correctGender: "boy" },
-    { id: 22, src: "/facetTest2/boy28.jpeg", correctGender: "boy" },
-    { id: 23, src: "/facetTest2/boy29.jpeg", correctGender: "boy" },
-    { id: 24, src: "/facetTest2/boy30.jpeg", correctGender: "boy" },
-    { id: 25, src: "/facetTest2/boy31.jpeg", correctGender: "boy" },
-    { id: 26, src: "/facetTest2/boy34.jpeg", correctGender: "boy" },
-    { id: 27, src: "/facetTest2/boy35.jpeg", correctGender: "boy" },
-    { id: 28, src: "/facetTest2/boy40.jpeg", correctGender: "boy" },
-    { id: 29, src: "/facetTest2/boy41.jpeg", correctGender: "boy" },
-    { id: 30, src: "/facetTest2/boy44.jpeg", correctGender: "boy" },
-    { id: 31, src: "/facetTest2/boy45.jpeg", correctGender: "boy" },
-    { id: 32, src: "/facetTest2/boy46.jpeg", correctGender: "boy" },
-    { id: 33, src: "/facetTest2/boy47.jpeg", correctGender: "boy" },
-    { id: 34, src: "/facetTest2/boy5.jpeg", correctGender: "boy" },
-    { id: 35, src: "/facetTest2/boy7.jpeg", correctGender: "boy" },
-    { id: 36, src: "/facetTest2/boy8.jpeg", correctGender: "boy" },
-    { id: 37, src: "/facetTest2/boy9.jpeg", correctGender: "boy" },
-    { id: 38, src: "/facetTest2/girl20.jpeg", correctGender: "girl" },
-    { id: 39, src: "/facetTest2/girl21.jpeg", correctGender: "girl" },
-    { id: 40, src: "/facetTest2/girl22.jpeg", correctGender: "girl" },
-    { id: 41, src: "/facetTest2/girl23.jpeg", correctGender: "girl" },
-    { id: 42, src: "/facetTest2/girl26.jpeg", correctGender: "girl" },
-    { id: 43, src: "/facetTest2/girl27.jpeg", correctGender: "girl" },
-    { id: 44, src: "/facetTest2/girl32.jpeg", correctGender: "girl" },
-    { id: 45, src: "/facetTest2/girl33.jpeg", correctGender: "girl" },
-    { id: 46, src: "/facetTest2/girl36.jpeg", correctGender: "girl" },
-    { id: 47, src: "/facetTest2/girl37.jpeg", correctGender: "girl" },
-    { id: 48, src: "/facetTest2/girl38.jpeg", correctGender: "girl" },
-    { id: 49, src: "/facetTest2/girl39.jpeg", correctGender: "girl" },
+  // ---------- planches ----------
+  const planches = [
+    {
+      plancheNum: 1,
+      options: [
+        "/visual-memory/photos experimentales/Planche 1/WhatsApp Image 2026-07-01 at 3.25.42 PM.jpeg",
+        "/visual-memory/photos experimentales/Planche 1/WhatsApp Image 2026-07-01 at 3.25.43 PM (1).jpeg",
+        "/visual-memory/photos experimentales/Planche 1/WhatsApp Image 2026-07-01 at 3.25.43 PM.jpeg"
+      ],
+      correctSrc: "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.38 PM (1).jpeg"
+    },
+    {
+      plancheNum: 2,
+      options: [
+        "/visual-memory/photos experimentales/Planche 2/WhatsApp Image 2026-07-01 at 3.26.09 PM (1).jpeg",
+        "/visual-memory/photos experimentales/Planche 2/WhatsApp Image 2026-07-01 at 3.26.09 PM (2).jpeg",
+        "/visual-memory/photos experimentales/Planche 2/WhatsApp Image 2026-07-01 at 3.26.09 PM.jpeg"
+      ],
+      correctSrc: "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.39 PM (5).jpeg"
+    },
+    {
+      plancheNum: 3,
+      options: [
+        "/visual-memory/photos experimentales/Planche 3/WhatsApp Image 2026-07-01 at 3.26.35 PM (1).jpeg",
+        "/visual-memory/photos experimentales/Planche 3/WhatsApp Image 2026-07-01 at 3.26.35 PM (2).jpeg",
+        "/visual-memory/photos experimentales/Planche 3/WhatsApp Image 2026-07-01 at 3.26.35 PM.jpeg"
+      ],
+      correctSrc: "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.40 PM.jpeg"
+    },
+    {
+      plancheNum: 4,
+      options: [
+        "/visual-memory/photos experimentales/Planche 4/WhatsApp Image 2026-07-01 at 3.27.37 PM (1).jpeg",
+        "/visual-memory/photos experimentales/Planche 4/WhatsApp Image 2026-07-01 at 3.27.37 PM (2).jpeg",
+        "/visual-memory/photos experimentales/Planche 4/WhatsApp Image 2026-07-01 at 3.27.37 PM.jpeg"
+      ],
+      correctSrc: "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.38 PM (4).jpeg"
+    },
+    {
+      plancheNum: 5,
+      options: [
+        "/visual-memory/photos experimentales/Planche 5/WhatsApp Image 2026-07-01 at 3.28.02 PM.jpeg",
+        "/visual-memory/photos experimentales/Planche 5/WhatsApp Image 2026-07-01 at 3.28.03 PM (1).jpeg",
+        "/visual-memory/photos experimentales/Planche 5/WhatsApp Image 2026-07-01 at 3.28.03 PM.jpeg"
+      ],
+      correctSrc: "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.39 PM.jpeg"
+    },
+    {
+      plancheNum: 6,
+      options: [
+        "/visual-memory/photos experimentales/Planche 6/WhatsApp Image 2026-07-01 at 3.28.39 PM (1).jpeg",
+        "/visual-memory/photos experimentales/Planche 6/WhatsApp Image 2026-07-01 at 3.28.39 PM (2).jpeg",
+        "/visual-memory/photos experimentales/Planche 6/WhatsApp Image 2026-07-01 at 3.28.39 PM.jpeg"
+      ],
+      correctSrc: "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.38 PM.jpeg"
+    },
+    {
+      plancheNum: 7,
+      options: [
+        "/visual-memory/photos experimentales/Planche 7/WhatsApp Image 2026-07-01 at 3.29.05 PM (1).jpeg",
+        "/visual-memory/photos experimentales/Planche 7/WhatsApp Image 2026-07-01 at 3.29.05 PM (2).jpeg",
+        "/visual-memory/photos experimentales/Planche 7/WhatsApp Image 2026-07-01 at 3.29.05 PM.jpeg"
+      ],
+      correctSrc: "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.40 PM (3).jpeg"
+    },
+    {
+      plancheNum: 8,
+      options: [
+        "/visual-memory/photos experimentales/Planche 8/WhatsApp Image 2026-07-01 at 3.29.41 PM (1).jpeg",
+        "/visual-memory/photos experimentales/Planche 8/WhatsApp Image 2026-07-01 at 3.29.41 PM.jpeg",
+        "/visual-memory/photos experimentales/Planche 8/WhatsApp Image 2026-07-01 at 3.29.42 PM.jpeg"
+      ],
+      correctSrc: "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.40 PM (2).jpeg"
+    },
+    {
+      plancheNum: 9,
+      options: [
+        "/visual-memory/photos experimentales/Planche 9/WhatsApp Image 2026-07-01 at 3.30.59 PM (1).jpeg",
+        "/visual-memory/photos experimentales/Planche 9/WhatsApp Image 2026-07-01 at 3.30.59 PM (2).jpeg",
+        "/visual-memory/photos experimentales/Planche 9/WhatsApp Image 2026-07-01 at 3.30.59 PM.jpeg"
+      ],
+      correctSrc: "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.39 PM (2).jpeg"
+    },
+    {
+      plancheNum: 10,
+      options: [
+        "/visual-memory/photos experimentales/Planche 10/WhatsApp Image 2026-07-01 at 3.31.23 PM.jpeg",
+        "/visual-memory/photos experimentales/Planche 10/WhatsApp Image 2026-07-01 at 3.31.23 PM (1).jpeg",
+        "/visual-memory/photos experimentales/Planche 10/WhatsApp Image 2026-07-01 at 3.31.23 PM (2).jpeg"
+      ],
+      correctSrc: "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.40 PM (4).jpeg"
+    },
+    {
+      plancheNum: 11,
+      options: [
+        "/visual-memory/photos experimentales/Planche 11/WhatsApp Image 2026-07-01 at 3.31.44 PM (1).jpeg",
+        "/visual-memory/photos experimentales/Planche 11/WhatsApp Image 2026-07-01 at 3.31.44 PM (2).jpeg",
+        "/visual-memory/photos experimentales/Planche 11/WhatsApp Image 2026-07-01 at 3.31.44 PM.jpeg"
+      ],
+      correctSrc: "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.39 PM (4).jpeg"
+    },
+    {
+      plancheNum: 12,
+      options: [
+        "/visual-memory/photos experimentales/Planche 12/WhatsApp Image 2026-07-01 at 3.33.26 PM (1).jpeg",
+        "/visual-memory/photos experimentales/Planche 12/WhatsApp Image 2026-07-01 at 3.33.26 PM (2).jpeg",
+        "/visual-memory/photos experimentales/Planche 12/WhatsApp Image 2026-07-01 at 3.33.26 PM.jpeg"
+      ],
+      correctSrc: "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.38 PM (2).jpeg"
+    },
+    {
+      plancheNum: 13,
+      options: [
+        "/visual-memory/photos experimentales/Planche 13/WhatsApp Image 2026-07-01 at 3.34.36 PM (1).jpeg",
+        "/visual-memory/photos experimentales/Planche 13/WhatsApp Image 2026-07-01 at 3.34.36 PM (2).jpeg",
+        "/visual-memory/photos experimentales/Planche 13/WhatsApp Image 2026-07-01 at 3.34.36 PM.jpeg"
+      ],
+      correctSrc: "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.39 PM (1).jpeg"
+    },
+    {
+      plancheNum: 14,
+      options: [
+        "/visual-memory/photos experimentales/Planche 14/WhatsApp Image 2026-07-01 at 3.35.01 PM (1).jpeg",
+        "/visual-memory/photos experimentales/Planche 14/WhatsApp Image 2026-07-01 at 3.35.01 PM (2).jpeg",
+        "/visual-memory/photos experimentales/Planche 14/WhatsApp Image 2026-07-01 at 3.35.01 PM.jpeg"
+      ],
+      correctSrc: "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.39 PM (3).jpeg"
+    },
+    {
+      plancheNum: 15,
+      options: [
+        "/visual-memory/photos experimentales/Planche 15/WhatsApp Image 2026-07-01 at 3.35.36 PM (1).jpeg",
+        "/visual-memory/photos experimentales/Planche 15/WhatsApp Image 2026-07-01 at 3.35.36 PM.jpeg",
+        "/visual-memory/photos experimentales/Planche 15/WhatsApp Image 2026-07-01 at 3.35.37 PM.jpeg"
+      ],
+      correctSrc: "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.40 PM (1).jpeg"
+    },
+    {
+      plancheNum: 16,
+      options: [
+        "/visual-memory/photos experimentales/Planche 16/WhatsApp Image 2026-07-01 at 3.35.59 PM.jpeg",
+        "/visual-memory/photos experimentales/Planche 16/WhatsApp Image 2026-07-01 at 3.36.00 PM (1).jpeg",
+        "/visual-memory/photos experimentales/Planche 16/WhatsApp Image 2026-07-01 at 3.36.00 PM.jpeg"
+      ],
+      correctSrc: "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.38 PM (3).jpeg"
+    }
   ];
 
   // init choose-face audio on mount (we will call play() inside startTest user-click)
@@ -170,19 +257,10 @@ export default function FaceRecognitionTest({
   // -------------------------
   const prepareRound = () => {
     const round = currentRoundRef.current; // 0-based
-    const targetId = round + 1; // 1..16
-    const d1Id = 17 + round * 2;
-    const d2Id = d1Id + 1;
+    const currentPlanche = planches[round];
+    if (!currentPlanche) return;
 
-    const target = allPhotos.find((p) => p.id === targetId);
-    const d1 = allPhotos.find((p) => p.id === d1Id);
-    const d2 = allPhotos.find((p) => p.id === d2Id);
-
-    const arr: PhotoData[] = [];
-    if (target) arr.push(target);
-    if (d1) arr.push(d1);
-    if (d2) arr.push(d2);
-
+    const arr = [...currentPlanche.options];
     // shuffle positions
     for (let i = arr.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -192,7 +270,7 @@ export default function FaceRecognitionTest({
     }
 
     setCurrentPhotos(arr);
-    setTargetPhotoId(targetId);
+    setTargetPhotoSrc(currentPlanche.correctSrc);
   };
 
   // timers management
@@ -217,9 +295,9 @@ export default function FaceRecognitionTest({
     roundLockedRef.current = false;
 
     // speak question immediately and every 5s while the round is active
-    speakText("أي من هذه الوجوه رأيته من قبل في الاختبار السابق؟");
+    speakText("أي من هذه الصور رأيتها من قبل في الاختبار السابق؟");
     audioIntervalRef.current = window.setInterval(() => {
-      speakText("أي من هذه الوجوه رأيته من قبل في الاختبار السابق؟");
+      speakText("أي من هذه الصور رأيتها من قبل في الاختبار السابق؟");
     }, 5000);
 
     // countdown timer (1s)
@@ -260,61 +338,24 @@ export default function FaceRecognitionTest({
     setCurrentRound(0);
     setPhase("running");
 
-    // mark banner visible (persist)
-    setIntroBannerVisible(true);
-
-    // prepare round photos and show them (photo-display view) but keep timers paused
+    // prepare round photos and show them (photo-display view)
     prepareRound();
     setPhase("photo-display");
     setTimeRemaining(5);
-    roundLockedRef.current = true; // lock clicks until audio ends
+    roundLockedRef.current = false; // unlock immediately
 
-    // play audio (user gesture)
-    const audio = chooseAudioRef.current;
-    if (!audio) {
-      // no audio -> start timers right away
-      roundLockedRef.current = false;
-      startTimersForPreparedRound();
-      return;
-    }
-
-    // if already played before, just start timers
-    if (introPlayedRef.current) {
-      startTimersForPreparedRound();
-      return;
-    }
-
-    setIntroPlaying(true);
-
-    const onIntroEnded = () => {
-      setIntroPlaying(false);
-      introPlayedRef.current = true;
-      // unlock clicks and start the countdown for this prepared round
-      roundLockedRef.current = false;
-      startTimersForPreparedRound();
-    };
-
-    audio.addEventListener("ended", onIntroEnded, { once: true });
-    audio.currentTime = 0;
-
-    try {
-      // this is invoked inside a user click -> browsers should allow it
-      await audio.play();
-    } catch (err) {
-      // play blocked or error -> proceed anyway
-      console.warn("choose-face audio play blocked or failed:", err);
-      setIntroPlaying(false);
-      try {
-        audio.removeEventListener("ended", onIntroEnded as EventListener);
-      } catch {}
-      introPlayedRef.current = true;
-      roundLockedRef.current = false;
-      startTimersForPreparedRound();
-    }
+    // start timers immediately
+    startTimersForPreparedRound();
   };
 
+  useEffect(() => {
+    setTimeout(() => {
+      void startTest();
+    }, 100);
+  }, []);
+
   // handle a selection (or null when ignored)
-  const handleResponse = (selectedPhotoId: number | null) => {
+  const handleResponse = (selectedPhotoSrc: string | null) => {
     // ignore clicks while intro is playing / locked
     if (introPlaying || roundLockedRef.current) return;
     if (roundLockedRef.current) return;
@@ -325,13 +366,13 @@ export default function FaceRecognitionTest({
     clearTimers();
 
     const responseTime = Date.now() - startTime;
-    const isCorrect = selectedPhotoId === targetPhotoId;
+    const isCorrect = selectedPhotoSrc === targetPhotoSrc;
 
     const result: TestResult = {
       roundNumber: currentRoundRef.current + 1,
-      selectedPhotoId,
-      correctPhotoId: targetPhotoId,
-      isCorrect: selectedPhotoId === null ? null : isCorrect,
+      selectedPhotoSrc,
+      correctPhotoSrc: targetPhotoSrc,
+      isCorrect: selectedPhotoSrc === null ? null : isCorrect,
       responseTime,
     };
 
@@ -352,7 +393,7 @@ export default function FaceRecognitionTest({
   const calculateResults = () => {
     const correct = results.filter((r) => r.isCorrect === true).length;
     const incorrect = results.filter((r) => r.isCorrect === false).length;
-    const ignored = results.filter((r) => r.selectedPhotoId === null).length;
+    const ignored = results.filter((r) => r.selectedPhotoSrc === null).length;
     const totalScore = correct - incorrect;
     return { correct, incorrect, ignored, totalScore };
   };
@@ -423,11 +464,11 @@ export default function FaceRecognitionTest({
       <div className="min-h-screen bg-background p-8" dir="rtl">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center gap-4 mb-8">
-            <Button variant="outline" size="icon" onClick={onBack}>
+            <Button variant="outline" size="icon" onClick={handleBack}>
               <ArrowLeft className="h-4 w-4" />
             </Button>
             <h1 className="text-3xl font-bold">
-              الاختبار الخامس: التعرف على الوجوه
+              الاختبار الخامس: إختبار الذاكرة البصرية 2
             </h1>
           </div>
 
@@ -442,14 +483,14 @@ export default function FaceRecognitionTest({
               </p>
               <p className="text-lg">كل مجموعة ستظهر لمدة 5 ثوانٍ.</p>
               <p className="text-lg">
-                عليك أن تختار الوجه الذي رأيته من قبل في الاختبار السابق (اختبار
-                تحديد الجنس).
+                عليك أن تختار الوجه الذي رأيته من قبل في الاختبار السابق (إختبار
+                الذاكرة البصرية 1).
               </p>
               <p className="text-lg">
                 ستسمع السؤال: "أي من هذه الوجوه رأيته من قبل في الاختبار
                 السابق؟"
               </p>
-              <p className="text-lg font-semibold text-blue-600">
+              <p className="text-lg font-semibold text-brand-600">
                 انتبه: لديك 5 ثوانٍ فقط للإجابة على كل مجموعة!
               </p>
             </CardContent>
@@ -471,7 +512,7 @@ export default function FaceRecognitionTest({
       <div className="min-h-screen bg-background p-8" dir="rtl">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center gap-4 mb-8">
-            <Button variant="outline" size="icon" onClick={onBack}>
+            <Button variant="outline" size="icon" onClick={handleBack}>
               <ArrowLeft className="h-4 w-4" />
             </Button>
           </div>
@@ -515,9 +556,11 @@ export default function FaceRecognitionTest({
     return (
       <div className="min-h-screen bg-background p-8" dir="rtl">
         <div className="max-w-4xl mx-auto">
-          <div className="flex items-center gap-4 mb-8">
-            <Button variant="outline" size="icon" onClick={onBack}>
-              <ArrowLeft className="h-4 w-4" />
+          <div className="flex justify-between items-center gap-4 mb-8">
+            <h1 className="text-2xl font-bold">الاختبار الخامس: إختبار الذاكرة البصرية 2</h1>
+            <Button variant="outline" onClick={handleBack} className="flex items-center gap-2">
+              <ArrowLeft className="h-4 w-4 ml-1" />
+              <span>الرجوع لقائمة الاختبارات</span>
             </Button>
           </div>
 
@@ -535,24 +578,24 @@ export default function FaceRecognitionTest({
 
           <div className="text-center mb-8">
             <div className="flex justify-center gap-8 mb-6">
-              {currentPhotos.map((photo, index) => (
-                <div key={photo.id} className="flex flex-col items-center">
+              {currentPhotos.map((photoSrc, index) => (
+                <div key={index} className="flex flex-col items-center">
                   <div
                     role="button"
                     tabIndex={0}
-                    onClick={() => handleResponse(photo.id)}
+                    onClick={() => handleResponse(photoSrc)}
                     onKeyDown={(e) => {
                       if (e.key === "Enter" || e.key === " ") {
                         e.preventDefault();
-                        handleResponse(photo.id);
+                        handleResponse(photoSrc);
                       }
                     }}
-                    className="p-2 bg-white border-2 border-gray-300 hover:border-blue-500 hover:bg-blue-50 rounded-lg cursor-pointer"
+                    className="p-2 bg-white border-2 border-gray-300 hover:border-brand-500 hover:bg-brand-50 rounded-lg cursor-pointer"
                     style={{ display: "inline-block" }}
                   >
                     <img
-                      src={photo.src || "/placeholder.svg"}
-                      alt={`وجه ${index + 1}`}
+                      src={photoSrc || "/placeholder.svg"}
+                      alt={`صورة خيار ${index + 1}`}
                       className="w-48 h-48 object-cover rounded-lg"
                     />
                   </div>

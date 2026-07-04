@@ -1159,7 +1159,13 @@ export default function VisualSearchTest() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4">
+    <div className="min-h-screen bg-brand-50/30 p-4 flex flex-col gap-4">
+      <div className="flex justify-between items-center max-w-full">
+        <h1 className="text-2xl font-bold">اختبار الانتباه البصري 1</h1>
+        <Button variant="outline" onClick={() => router.push("/tests")}>
+          الرجوع لقائمة الاختبارات
+        </Button>
+      </div>
       <div>
         <Card>
           <CardContent className="pt-4">
@@ -1201,7 +1207,7 @@ export default function VisualSearchTest() {
                         ? image.isCorrect
                           ? "border-green-500 bg-green-100"
                           : "border-red-500 bg-red-100"
-                        : "border-gray-300 bg-white hover:border-blue-400 hover:bg-blue-50"
+                        : "border-gray-300 bg-white hover:border-brand-400 hover:bg-brand-50"
                     }
                     ${
                       !isTestActive

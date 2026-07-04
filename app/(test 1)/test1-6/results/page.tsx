@@ -36,7 +36,7 @@ export default function NameLearnResultsPage() {
             const total = parsed?.totalImages ?? correct + incorrect + ignored;
             void apiPost("/results", {
               childId: child.id,
-              testKey: "اختبار ذاكرة الأسماء 1",
+              testKey: "اختبار الذاكرة السمعية 1",
               correct,
               incorrect,
               ignored,
@@ -89,7 +89,7 @@ export default function NameLearnResultsPage() {
         <Card className="mb-6">
           <CardHeader>
             <CardTitle className="text-3xl text-center">
-              نتائج الاختبار السادس: الربط السمعي البصري
+              نتائج اختبار الذاكرة السمعية 1
             </CardTitle>
           </CardHeader>
           <CardContent>

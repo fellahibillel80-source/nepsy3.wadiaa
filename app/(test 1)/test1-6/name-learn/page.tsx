@@ -8,7 +8,7 @@ import { Progress } from "@/components/ui/progress";
 import { CircularProgress } from "@/components/ui/circular-progress";
 
 interface AudioVisualTestProps {
-  onBack: () => void;
+  onBack?: () => void;
 }
 
 interface TestImage {
@@ -20,6 +20,7 @@ interface TestImage {
 
 export default function AudioVisualTest({ onBack }: AudioVisualTestProps) {
   const router = useRouter(); // Added
+  const handleBack = onBack || (() => router.push("/tests"));
   const [phase, setPhase] = useState<"instructions" | "ready" | "running">(
     "instructions"
   ); // "results" removed
@@ -145,6 +146,12 @@ export default function AudioVisualTest({ onBack }: AudioVisualTestProps) {
     await playIntroThenRun();
   };
 
+  useEffect(() => {
+    setTimeout(() => {
+      void startTest();
+    }, 100);
+  }, []);
+
   const playIntroThenRun = async () => {
     const instr = audioMapRef.current[instructionKey];
     if (!instr) {
@@ -155,6 +162,7 @@ export default function AudioVisualTest({ onBack }: AudioVisualTestProps) {
     setIntroPlaying(true);
     setLocked(true);
     setIntroPlayed(false);
+    setPhase("running");
 
     await new Promise<void>((resolve) => {
       const onEnded = () => {
@@ -174,6 +182,7 @@ export default function AudioVisualTest({ onBack }: AudioVisualTestProps) {
     setIntroPlayed(true);
     setLocked(false);
     setPhase("running");
+    showCurrentImage();
   };
 
   // Show image and schedule audio repeats and advance
@@ -188,6 +197,10 @@ export default function AudioVisualTest({ onBack }: AudioVisualTestProps) {
 
     if (currentIndex >= testImages.length) {
       finishTest();
+      return;
+    }
+
+    if (introPlaying) {
       return;
     }
 
@@ -339,7 +352,7 @@ export default function AudioVisualTest({ onBack }: AudioVisualTestProps) {
           <Card>
             <CardHeader>
               <CardTitle className="text-2xl text-center">
-                الاختبار السادس: الربط السمعي البصري
+                الاختبار السادس: اختبار الذاكرة السمعية 1
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -355,7 +368,7 @@ export default function AudioVisualTest({ onBack }: AudioVisualTestProps) {
 
               <div className="flex gap-4 justify-center">
                 <Button
-                  onClick={onBack}
+                  onClick={handleBack}
                   variant="outline"
                   className="bg-gray-100 text-gray-700 hover:bg-gray-200"
                 >
@@ -363,7 +376,7 @@ export default function AudioVisualTest({ onBack }: AudioVisualTestProps) {
                 </Button>
                 <Button
                   onClick={() => setPhase("ready")}
-                  className="bg-blue-600 text-white hover:bg-blue-700"
+                  className="bg-brand-600 text-white hover:bg-brand-700"
                 >
                   التالي
                 </Button>
@@ -402,7 +415,7 @@ export default function AudioVisualTest({ onBack }: AudioVisualTestProps) {
 
               <div className="flex gap-4 justify-center">
                 <Button
-                  onClick={onBack}
+                  onClick={handleBack}
                   variant="outline"
                   className="bg-gray-100 text-gray-700 hover:bg-gray-200"
                 >
@@ -432,13 +445,16 @@ export default function AudioVisualTest({ onBack }: AudioVisualTestProps) {
         <div className="max-w-4xl mx-auto">
           <Card>
             <CardHeader>
-              <div className="flex justify-start items-start mb-4">
+              <div className="flex justify-between items-start mb-4">
                 <CircularProgress
                   timeLeft={timeRemaining}
                   totalTime={5}
                   size={80}
                   strokeWidth={6}
                 />
+                <Button variant="outline" onClick={handleBack}>
+                  الرجوع لقائمة الاختبارات
+                </Button>
               </div>
             </CardHeader>
             <CardContent className="space-y-6">

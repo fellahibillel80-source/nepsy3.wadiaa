@@ -47,29 +47,29 @@ const tests = [
   },
   {
     key: "test1-4",
-    title: "اختبار ذاكرة الوجوه 1",
-    testKey: "اختبار ذاكرة الوجوه 1",
+    title: "إختبار الذاكرة البصرية 1",
+    testKey: "إختبار الذاكرة البصرية 1",
     startHref: "/test1-4/face-memory",
     resultsHref: "/test1-4/results",
   },
   {
     key: "test1-5",
-    title: "اختبار ذاكرة الوجوه 2 و 3",
-    testKey: "اختبار ذاكرة الوجوه 2 و 3",
+    title: "إختبار الذاكرة البصرية 2",
+    testKey: "إختبار الذاكرة البصرية 2",
     startHref: "/test1-5/face-choose",
     resultsHref: "/test1-5/results",
   },
   {
     key: "test1-6",
-    title: "اختبار ذاكرة الأسماء 1",
-    testKey: "اختبار ذاكرة الأسماء 1",
+    title: "اختبار الذاكرة السمعية 1",
+    testKey: "اختبار الذاكرة السمعية 1",
     startHref: "/test1-6/name-learn",
     resultsHref: "/test1-6/results",
   },
   {
     key: "test1-7",
-    title: "اختبار ذاكرة الأسماء 2",
-    testKey: "اختبار ذاكرة الأسماء 2",
+    title: "اختبار الذاكرة السمعية 2",
+    testKey: "اختبار الذاكرة السمعية 2",
     startHref: "/test1-7/name-memo",
     resultsHref: "/test1-7/results",
   },
@@ -79,72 +79,84 @@ const tests = [
     title: "اختبار الإدراك السمعي 1",
     external: true,
     screen: "test1-8",
+    resultsHref: "/children-results",
   },
   {
     key: "test1-9",
     title: "اختبار الإدراك السمعي 2",
     external: true,
     screen: "test1-9",
+    resultsHref: "/children-results",
   },
   {
     key: "test1-10",
     title: "اختبار الإدراك السمعي 3",
     external: true,
     screen: "test1-10",
+    resultsHref: "/children-results",
   },
   {
     key: "test1-11",
     title: "اختبار الإدراك البصري 1",
     external: true,
     screen: "test1-11",
+    resultsHref: "/children-results",
   },
   {
     key: "test1-12",
     title: "اختبار الإغلاق البصري 2",
     external: true,
     screen: "test1-12",
+    resultsHref: "/children-results",
   },
   {
     key: "test1-13",
     title: "لاستقبال المعجمي",
     external: true,
     screen: "test1-13",
+    resultsHref: "/children-results",
   },
   {
     key: "test1-14",
     title: "انتاج المعجمي 1",
     external: true,
     screen: "test1-14",
+    resultsHref: "/children-results",
   },
   {
     key: "test1-15",
     title: "انتاج المعجمي2",
     external: true,
     screen: "test1-15",
+    resultsHref: "/children-results",
   },
   {
     key: "test1-16",
     title: "تكرار الكلمات",
     external: true,
     screen: "test1-16",
+    resultsHref: "/children-results",
   },
   {
     key: "test1-17",
     title: "اختبار الفهم1",
     external: true,
     screen: "test1-17",
+    resultsHref: "/children-results",
   },
   {
     key: "test1-18",
     title: "اختبار فهم 2",
     external: true,
     screen: "test1-18",
+    resultsHref: "/children-results",
   },
   {
     key: "test1-19",
     title: "اختبار تكرار كلمات",
     external: true,
     screen: "test1-19",
+    resultsHref: "/children-results",
   },
 ];
 
@@ -156,12 +168,13 @@ export default function TestsHubPage() {
 
   useEffect(() => {
     try {
-      const child = JSON.parse(localStorage.getItem("childData") || "null");
-      if (child?.id) {
-        setChildId(child.id);
-        apiGet<Result[]>(`/children/${child.id}/results`)
+      const urlParams = new URLSearchParams(window.location.search);
+      const queryChildId = urlParams.get("childId");
+
+      const loadResultsForChild = (cId: number) => {
+        setChildId(cId);
+        apiGet<Result[]>(`/children/${cId}/results`)
           .then((list) => {
-            // keep latest per testKey
             const map: Record<string, Result> = {};
             for (const r of list) {
               const prev = map[r.testKey];
@@ -172,12 +185,44 @@ export default function TestsHubPage() {
             setByTestKey(map);
           })
           .catch(() => {});
+      };
+
+      if (queryChildId) {
+        const cId = parseInt(queryChildId, 10);
+        if (!isNaN(cId)) {
+          apiGet<any[]>("/children")
+            .then((list) => {
+              const foundChild = list.find((c) => c.id === cId);
+              if (foundChild) {
+                localStorage.setItem(
+                  "childData",
+                  JSON.stringify({
+                    id: foundChild.id,
+                    firstName: foundChild.firstName,
+                    lastName: foundChild.lastName,
+                    iq: foundChild.iq,
+                    gender: foundChild.gender || localStorage.getItem(`child_gender_${foundChild.id}`) || "male",
+                    startTime: new Date().toISOString(),
+                  })
+                );
+                window.dispatchEvent(new Event("gender-change"));
+                loadResultsForChild(cId);
+              }
+            })
+            .catch(() => {});
+          return;
+        }
+      }
+
+      const child = JSON.parse(localStorage.getItem("childData") || "null");
+      if (child?.id) {
+        loadResultsForChild(child.id);
       }
     } catch {}
   }, []);
 
   return (
-    <div className="min-h-screen bg-background p-6" dir="rtl">
+    <div className="min-h-screen bg-gradient-to-br from-brand-50 to-brand-100/30 p-6" dir="rtl">
       <div className="max-w-6xl mx-auto space-y-6">
         <Card>
           <CardHeader>
@@ -213,38 +258,39 @@ export default function TestsHubPage() {
                           لا توجد نتائج محفوظة بعد.
                         </div>
                       )}
-                      <div className="flex gap-2 mt-auto">
-                        {"startHref" in t ? (
-                          <Link href={(t as any).startHref} className="w-full">
-                            <Button className="w-full">بدء</Button>
-                          </Link>
-                        ) : (
-                          <Button
-                            className="w-full"
-                            disabled={!childId}
-                            onClick={() => {
-                              if (!childId || !("external" in t)) return;
-                              const base = "https://rapport-8d84c.web.app/";
-                              const url = `${base}?screen=${encodeURIComponent(
-                                (t as any).screen
-                              )}&childId=${encodeURIComponent(
-                                String(childId)
-                              )}&testKey=${encodeURIComponent(t.key)}`;
-                              window.location.href = url;
-                            }}
-                          >
-                            بدء
-                          </Button>
-                        )}
-                        {"resultsHref" in t ? (
-                          <Link
-                            href={(t as any).resultsHref}
-                            className="w-full"
-                          >
-                            <Button variant="outline" className="w-full">
-                              عرض النتائج
+                      <div className="flex gap-2 mt-auto w-full">
+                        <div className="flex-1">
+                          {"startHref" in t ? (
+                            <Link href={(t as any).startHref}>
+                              <Button className="w-full text-white font-bold text-base">بدء</Button>
+                            </Link>
+                          ) : (
+                            <Button
+                              className="w-full text-white font-bold text-base"
+                              onClick={() => {
+                                if (!("external" in t)) return;
+                                const activeChildId = childId || 1;
+                                const base = "https://rapport-8d84c.web.app/";
+                                const url = `${base}?screen=${encodeURIComponent(
+                                  (t as any).screen
+                                )}&childId=${encodeURIComponent(
+                                  String(activeChildId)
+                                )}&testKey=${encodeURIComponent(t.key)}`;
+                                window.location.href = url;
+                              }}
+                            >
+                              بدء
                             </Button>
-                          </Link>
+                          )}
+                        </div>
+                        {"resultsHref" in t ? (
+                          <div className="flex-1">
+                            <Link href={(t as any).resultsHref}>
+                              <Button variant="outline" className="w-full">
+                                عرض النتائج
+                              </Button>
+                            </Link>
+                          </div>
                         ) : null}
                       </div>
                     </CardContent>

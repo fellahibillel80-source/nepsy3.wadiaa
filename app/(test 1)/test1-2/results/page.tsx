@@ -85,7 +85,7 @@ export default function TestResultsPage() {
 
   const getPerformanceLevel = (accuracy: number) => {
     if (accuracy >= 90) return { level: "ممتاز", color: "text-green-600" };
-    if (accuracy >= 75) return { level: "جيد جدا", color: "text-blue-600" };
+    if (accuracy >= 75) return { level: "جيد جدا", color: "text-brand-600" };
     if (accuracy >= 60) return { level: "جيد", color: "text-yellow-600" };
     return { level: "يحتاج إلى تحسين", color: "text-red-600" };
   };
@@ -117,7 +117,7 @@ export default function TestResultsPage() {
     : null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-brand-50 to-brand-100/50 flex items-center justify-center p-4">
       <Card className="w-full max-w-3xl shadow-lg" dir="ltr">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl font-bold text-gray-800">

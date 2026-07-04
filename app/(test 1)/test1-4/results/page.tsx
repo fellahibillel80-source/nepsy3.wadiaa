@@ -11,12 +11,25 @@ type FaceMemoryTestResults = {
   testType: string;
   childName: string;
   childIQ: string;
-  correct: number;
-  incorrect: number;
-  ignored: number;
-  totalScore: number;
-  totalPhotos: number;
+  correct?: number;
+  incorrect?: number;
+  ignored?: number;
+  totalScore?: number;
+  totalPhotos?: number;
   completedAt: string;
+
+  exposure?: {
+    correct: number;
+    incorrect: number;
+    ignored: number;
+    total: number;
+  };
+  recognition?: {
+    correct: number;
+    incorrect: number;
+    ignored: number;
+    total: number;
+  };
 };
 
 export default function FaceMemoryResultsPage() {
@@ -34,16 +47,15 @@ export default function FaceMemoryResultsPage() {
         if (child?.id) {
           const guardKey = `resultPosted:test1-4:${child.id}`;
           if (sessionStorage.getItem(guardKey) !== "1") {
-            const correct = parsed?.correct ?? 0;
-            const incorrect = parsed?.incorrect ?? 0;
-            const ignored = parsed?.ignored ?? 0;
-            const total =
-              parsed?.totalPhotos ??
-              parsed?.total ??
-              correct + incorrect + ignored;
+            const isMerged = parsed.testType === "face-memory-merged" || "exposure" in parsed;
+            const correct = isMerged ? parsed.recognition.correct : (parsed.correct ?? 0);
+            const incorrect = isMerged ? parsed.recognition.incorrect : (parsed.incorrect ?? 0);
+            const ignored = isMerged ? parsed.recognition.ignored : (parsed.ignored ?? 0);
+            const total = isMerged ? parsed.recognition.total : (parsed.totalPhotos ?? 16);
+
             void apiPost("/results", {
               childId: child.id,
-              testKey: "اختبار ذاكرة الوجوه 1",
+              testKey: "إختبار الذاكرة البصرية 1",
               correct,
               incorrect,
               ignored,
@@ -87,7 +99,17 @@ export default function FaceMemoryResultsPage() {
     );
   }
 
-  const { correct, incorrect, ignored, totalScore, totalPhotos } = results;
+  const isMerged = results.testType === "face-memory-merged" || "exposure" in results;
+
+  const exposureCorrect = isMerged ? results.exposure!.correct : (results.correct ?? 0);
+  const exposureIncorrect = isMerged ? results.exposure!.incorrect : (results.incorrect ?? 0);
+  const exposureIgnored = isMerged ? results.exposure!.ignored : (results.ignored ?? 0);
+  const exposureTotal = isMerged ? results.exposure!.total : (results.totalPhotos ?? 16);
+
+  const recogCorrect = isMerged ? results.recognition!.correct : null;
+  const recogIncorrect = isMerged ? results.recognition!.incorrect : null;
+  const recogIgnored = isMerged ? results.recognition!.ignored : null;
+  const recogTotal = isMerged ? results.recognition!.total : null;
 
   return (
     <div
@@ -98,20 +120,20 @@ export default function FaceMemoryResultsPage() {
         <Card className="mb-6">
           <CardHeader>
             <CardTitle className="text-3xl text-center">
-              نتائج اختبار تحديد الجنس
+              نتائج إختبار الذاكرة البصرية 1
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="bg-muted/50 p-6 rounded-lg">
               <h3 className="text-xl font-semibold mb-4">
-                الجدول التالي يوضح كيفية تسجيل اختبار تحديد الجنس:
+                الجدول التالي يوضح كيفية تسجيل نقاط إختبار الذاكرة البصرية 1:
               </h3>
               <div className="overflow-x-auto">
                 <table className="w-full border-collapse border border-border">
                   <thead>
                     <tr className="bg-muted">
                       <th className="border border-border p-3 text-right">
-                        البند
+                        المرحلة
                       </th>
                       <th className="border border-border p-3 text-center">
                         الإجابات الصحيحة
@@ -130,21 +152,40 @@ export default function FaceMemoryResultsPage() {
                   <tbody>
                     <tr>
                       <td className="border border-border p-3 font-medium">
-                        اختبار تحديد الجنس
+                        المرحلة الأولى: عرض الصور وتذكرها
                       </td>
                       <td className="border border-border p-3 text-center">
-                        {correct}/{totalPhotos}
+                        {exposureCorrect}/{exposureTotal}
                       </td>
                       <td className="border border-border p-3 text-center">
-                        {incorrect}
+                        {exposureIncorrect}
                       </td>
                       <td className="border border-border p-3 text-center">
-                        {ignored}
+                        {exposureIgnored}
                       </td>
                       <td className="border border-border p-3 text-center font-bold">
-                        {totalScore}
+                        {exposureCorrect - exposureIncorrect}
                       </td>
                     </tr>
+                    {isMerged && (
+                      <tr>
+                        <td className="border border-border p-3 font-medium">
+                          المرحلة الثانية: التعرف الفوري (اختيار الصور)
+                        </td>
+                        <td className="border border-border p-3 text-center">
+                          {recogCorrect}/{recogTotal}
+                        </td>
+                        <td className="border border-border p-3 text-center">
+                          {recogIncorrect}
+                        </td>
+                        <td className="border border-border p-3 text-center">
+                          {recogIgnored}
+                        </td>
+                        <td className="border border-border p-3 text-center font-bold">
+                          {recogCorrect! - recogIncorrect!}
+                        </td>
+                      </tr>
+                    )}
                   </tbody>
                 </table>
               </div>

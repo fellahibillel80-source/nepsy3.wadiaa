@@ -38,7 +38,7 @@ export default function FaceRecognitionResultsPage() {
           if (sessionStorage.getItem(guardKey) !== "1") {
             apiPost("/results", {
               childId: child.id,
-              testKey: "اختبار ذاكرة الوجوه 2 و 3",
+              testKey: "إختبار الذاكرة البصرية 2",
               correct: parsed.correct,
               incorrect: parsed.incorrect,
               ignored: parsed.ignored,
@@ -93,7 +93,7 @@ export default function FaceRecognitionResultsPage() {
         <Card className="mb-6">
           <CardHeader>
             <CardTitle className="text-3xl text-center">
-              نتائج اختبار التعرف على الوجوه
+              نتائج إختبار الذاكرة البصرية 2
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -121,7 +121,7 @@ export default function FaceRecognitionResultsPage() {
                 <tbody>
                   <tr>
                     <td className="border border-border p-3 font-medium">
-                      الاختبار الخامس: التعرف على الوجوه
+                      الاختبار الخامس: إختبار الذاكرة البصرية 2
                     </td>
                     <td className="border border-border p-3 text-center">
                       {correct}/{totalRounds}

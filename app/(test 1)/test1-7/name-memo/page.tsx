@@ -106,6 +106,12 @@ export default function NameRecallTest() {
     }
   };
 
+  useEffect(() => {
+    setTimeout(() => {
+      void playInstructionsAndStart();
+    }, 100);
+  }, []);
+
   // Start the actual test
   const startTest = () => {
     setPhase("ready");
@@ -228,7 +234,7 @@ export default function NameRecallTest() {
         if (sessionStorage.getItem(guardKey) !== "1") {
           await apiPost("/results", {
             childId: child.id,
-            testKey: "اختبار ذاكرة الأسماء 2",
+            testKey: "اختبار الذاكرة السمعية 2",
             correct: heardResponses,
             incorrect: notHeardResponses,
             ignored: noResponses,
@@ -273,30 +279,49 @@ export default function NameRecallTest() {
   // Show instructions phase
   if (phase === "instructions") {
     return (
-      <div
-        className="min-h-screen bg-background p-8 flex items-center justify-center"
-        dir="rtl"
-      >
-        <Card className="w-full max-w-2xl">
-          <CardHeader>
-            <CardTitle className="text-2xl text-center">
-              الاختبار السابع: تذكّر الأسماء
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="text-center space-y-6">
-            <p className="text-lg">
-              سوف تسمع تعليمات الاختبار الآن. يرجى الاستماع بعناية والانتظار حتى
-              انتهاء التعليمات.
-            </p>
-            <Button
-              onClick={playInstructionsAndStart}
-              disabled={introPlaying}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 text-lg"
-            >
-              {introPlaying ? "جاري تشغيل التعليمات..." : "بدء الاختبار"}
+      <div className="min-h-screen bg-background p-8" dir="rtl">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex items-center justify-between mb-6">
+            <h1 className="text-3xl font-bold">الاختبار السابع: اختبار الذاكرة السمعية 2</h1>
+            <Button variant="outline" onClick={() => router.push("/tests")}>
+              الرجوع لقائمة الاختبارات
             </Button>
-          </CardContent>
-        </Card>
+          </div>
+
+          <div className="flex justify-center mb-6">
+            <div className="bg-purple-100 text-purple-700 px-6 py-3 rounded-full font-bold flex items-center gap-2 animate-pulse">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072M18.364 5.636a9 9 0 010 12.728M12 18.75V5.25L7.75 9.5H4.5v5h3.25L12 18.75z" />
+              </svg>
+              <span>يرجى الاستماع إلى التعليمات الصوتية...</span>
+            </div>
+          </div>
+
+          <div>
+            <div className="flex justify-center mb-2">
+              <div className="relative inline-block bg-white rounded-lg shadow p-4 opacity-50">
+                <img
+                  src={images[0].src}
+                  alt="صورة البداية"
+                  className="w-64 h-64 object-cover rounded-lg"
+                />
+              </div>
+            </div>
+
+            <div className="flex justify-center gap-6 mb-8 opacity-40 pointer-events-none">
+              <Button
+                disabled
+                size="lg"
+                className="bg-green-600 text-white w-10 h-10 rounded-full"
+              ></Button>
+              <Button
+                disabled
+                size="lg"
+                className="bg-red-600 text-white w-10 h-10 rounded-full"
+              ></Button>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -317,7 +342,7 @@ export default function NameRecallTest() {
                 strokeWidth={6}
               />
             </div>
-            <p className="text-3xl font-bold text-blue-600">{readyCountdown}</p>
+            <p className="text-3xl font-bold text-brand-600">{readyCountdown}</p>
           </CardContent>
         </Card>
       </div>
@@ -338,6 +363,9 @@ export default function NameRecallTest() {
       <div className="max-w-4xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-3xl font-bold">الاختبار السابع: تذكّر الأسماء</h1>
+          <Button variant="outline" onClick={() => router.push("/tests")}>
+            الرجوع لقائمة الاختبارات
+          </Button>
         </div>
 
         <div className="flex justify-start items-start mb-6">

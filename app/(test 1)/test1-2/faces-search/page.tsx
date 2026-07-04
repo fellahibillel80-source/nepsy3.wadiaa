@@ -498,8 +498,14 @@ export default function FaceRecognitionTest() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4" dir="rtl">
-      <div className=" mx-auto">
+    <div className="min-h-screen bg-brand-50/30 p-4 flex flex-col gap-4" dir="rtl">
+      <div className="flex justify-between items-center max-w-full">
+        <h1 className="text-2xl font-bold">اختبار الانتباه البصري 2</h1>
+        <Button variant="outline" onClick={() => router.push("/tests")}>
+          الرجوع لقائمة الاختبارات
+        </Button>
+      </div>
+      <div className=" mx-auto w-full">
         <Card>
           <CardContent className="pt-4">
             <div className="flex items-center mb-6">

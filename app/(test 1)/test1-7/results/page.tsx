@@ -68,7 +68,7 @@ export default function NameMemoResultsPage() {
         <Card className="mb-6">
           <CardHeader>
             <CardTitle className="text-3xl text-center">
-              نتائج اختبار تذكر الأسماء
+              نتائج اختبار الذاكرة السمعية 2
             </CardTitle>
           </CardHeader>
           <CardContent>
