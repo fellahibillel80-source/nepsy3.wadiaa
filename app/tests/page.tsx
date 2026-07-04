@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { apiGet } from "@/lib/api";
@@ -165,14 +166,17 @@ export default function TestsHubPage() {
     Record<string, Result | undefined>
   >({});
   const [childId, setChildId] = useState<number | null>(null);
+  const [childName, setChildName] = useState<string>("");
+  const router = useRouter();
 
   useEffect(() => {
     try {
       const urlParams = new URLSearchParams(window.location.search);
       const queryChildId = urlParams.get("childId");
 
-      const loadResultsForChild = (cId: number) => {
+      const loadResultsForChild = (cId: number, name?: string) => {
         setChildId(cId);
+        if (name) setChildName(name);
         apiGet<Result[]>(`/children/${cId}/results`)
           .then((list) => {
             const map: Record<string, Result> = {};
@@ -194,6 +198,7 @@ export default function TestsHubPage() {
             .then((list) => {
               const foundChild = list.find((c) => c.id === cId);
               if (foundChild) {
+                const fullName = `${foundChild.firstName} ${foundChild.lastName}`;
                 localStorage.setItem(
                   "childData",
                   JSON.stringify({
@@ -206,7 +211,7 @@ export default function TestsHubPage() {
                   })
                 );
                 window.dispatchEvent(new Event("gender-change"));
-                loadResultsForChild(cId);
+                loadResultsForChild(cId, fullName);
               }
             })
             .catch(() => {});
@@ -216,7 +221,8 @@ export default function TestsHubPage() {
 
       const child = JSON.parse(localStorage.getItem("childData") || "null");
       if (child?.id) {
-        loadResultsForChild(child.id);
+        const fullName = `${child.firstName || ""} ${child.lastName || ""}`.trim();
+        loadResultsForChild(child.id, fullName);
       }
     } catch {}
   }, []);
@@ -226,11 +232,30 @@ export default function TestsHubPage() {
       <div className="max-w-6xl mx-auto space-y-6">
         <Card>
           <CardHeader>
-            <div className="flex items-center justify-between gap-4">
-              <CardTitle className="text-2xl">قائمة الاختبارات</CardTitle>
-              <Link href="/children-results">
-                <Button variant="outline">عرض جميع النتائج</Button>
-              </Link>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+              <div>
+                <CardTitle className="text-2xl">قائمة الاختبارات</CardTitle>
+                {childName && (
+                  <p className="text-sm text-muted-foreground mt-1">
+                    👤 الطفل الحالي: <span className="font-semibold text-brand-700">{childName}</span>
+                  </p>
+                )}
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <Button
+                  variant="default"
+                  className="bg-brand-600 hover:bg-brand-700 text-white font-semibold flex items-center gap-2"
+                  onClick={() => router.push("/")}
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                  </svg>
+                  تغيير الطفل / طفل جديد
+                </Button>
+                <Link href="/children-results">
+                  <Button variant="outline">عرض جميع النتائج</Button>
+                </Link>
+              </div>
             </div>
           </CardHeader>
           <CardContent>
