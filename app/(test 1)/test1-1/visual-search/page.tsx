@@ -1159,10 +1159,10 @@ export default function VisualSearchTest() {
   }
 
   return (
-    <div className="min-h-screen bg-brand-50/30 p-4 flex flex-col gap-4">
-      <div className="flex justify-between items-center max-w-full">
-        <h1 className="text-2xl font-bold">اختبار الانتباه البصري 1</h1>
-        <Button variant="outline" onClick={() => router.push("/tests")}>
+    <div className="min-h-screen bg-brand-50/30 p-2 sm:p-4 flex flex-col gap-3 sm:gap-4">
+      <div className="flex justify-between items-center max-w-full gap-2">
+        <h1 className="text-lg sm:text-2xl font-bold">اختبار الانتباه البصري 1</h1>
+        <Button variant="outline" size="sm" onClick={() => router.push("/tests")} className="text-xs sm:text-sm">
           الرجوع لقائمة الاختبارات
         </Button>
       </div>
@@ -1192,8 +1192,8 @@ export default function VisualSearchTest() {
             </div>
 
             <div
-              className="relative w-full aspect-[2.2/1] bg-white max-w-full min-h-[300px] rounded-lg overflow-hidden"
-              style={{ height: "auto", minHeight: "300px" }}
+              className="relative w-full bg-white rounded-lg overflow-hidden"
+              style={{ minHeight: "clamp(280px, 55vw, 600px)", aspectRatio: "2.2 / 1" }}
             >
               {testImages.map((image) => (
                 <button
@@ -1218,12 +1218,8 @@ export default function VisualSearchTest() {
                   style={{
                     top: image.position.top,
                     left: image.position.left,
-                    width: "7vw",
-                    maxWidth: "60px",
-                    minWidth: "36px",
-                    height: "7vw",
-                    maxHeight: "60px",
-                    minHeight: "36px",
+                    width: "clamp(28px, 6vw, 60px)",
+                    height: "clamp(28px, 6vw, 60px)",
                   }}
                 >
                   <Image

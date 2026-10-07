@@ -764,10 +764,10 @@ export default function GenderIdentificationTest({
     const currentPhoto = photos[currentPhotoIndex];
 
     return (
-      <div className="min-h-screen bg-background p-8" dir="rtl">
+      <div className="min-h-screen bg-background p-4 md:p-8" dir="rtl">
         <div className="max-w-4xl mx-auto">
           <div className="flex justify-between items-center gap-4 mb-8">
-            <h1 className="text-2xl font-bold">الاختبار الرابع: إختبار الذاكرة البصرية 1</h1>
+            <h1 className="text-lg sm:text-xl md:text-2xl font-bold">الاختبار الرابع: إختبار الذاكرة البصرية 1</h1>
             <Button variant="outline" onClick={handleBack} className="flex items-center gap-2">
               <ArrowLeft className="h-4 w-4 ml-1" />
               <span>الرجوع لقائمة الاختبارات</span>
@@ -788,7 +788,7 @@ export default function GenderIdentificationTest({
               <img
                 src={currentPhoto.src || "/placeholder.svg"}
                 alt={`صورة الهدف ${currentPhotoIndex + 1}`}
-                className="w-64 h-64 object-cover rounded-lg"
+                className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 object-cover rounded-lg"
               />
             </div>
 

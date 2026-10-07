@@ -359,10 +359,10 @@ export default function NameRecallTest() {
   }
 
   return (
-    <div className="min-h-screen bg-background p-8" dir="rtl">
+    <div className="min-h-screen bg-background p-4 md:p-8" dir="rtl">
       <div className="max-w-4xl mx-auto">
         <div className="flex items-center justify-between mb-6">
-          <h1 className="text-3xl font-bold">الاختبار السابع: تذكّر الأسماء</h1>
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold">الاختبار السابع: تذكّر الأسماء</h1>
           <Button variant="outline" onClick={() => router.push("/tests")}>
             الرجوع لقائمة الاختبارات
           </Button>
@@ -406,17 +406,21 @@ export default function NameRecallTest() {
             </div>
           </div>
 
-          <div className="flex justify-center gap-6 mb-8">
+          <div className="flex justify-center gap-4 sm:gap-6 mb-8">
             <Button
               onClick={() => handleChoice(true)}
               size="lg"
-              className="bg-green-600 text-white hover:bg-green-700 w-10 h-10"
-            ></Button>
+              className="bg-green-600 text-white hover:bg-green-700 px-6 py-3 text-base font-bold rounded-xl min-w-[100px]"
+            >
+              نعم ✓
+            </Button>
             <Button
               onClick={() => handleChoice(false)}
               size="lg"
-              className="bg-red-600 text-white hover:bg-red-700 w-10 h-10"
-            ></Button>
+              className="bg-red-600 text-white hover:bg-red-700 px-6 py-3 text-base font-bold rounded-xl min-w-[100px]"
+            >
+              لا ✗
+            </Button>
           </div>
         </div>
       </div>

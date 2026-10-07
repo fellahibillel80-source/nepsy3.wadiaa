@@ -498,10 +498,10 @@ export default function FaceRecognitionTest() {
   }
 
   return (
-    <div className="min-h-screen bg-brand-50/30 p-4 flex flex-col gap-4" dir="rtl">
-      <div className="flex justify-between items-center max-w-full">
-        <h1 className="text-2xl font-bold">اختبار الانتباه البصري 2</h1>
-        <Button variant="outline" onClick={() => router.push("/tests")}>
+    <div className="min-h-screen bg-brand-50/30 p-2 sm:p-4 flex flex-col gap-3 sm:gap-4" dir="rtl">
+      <div className="flex justify-between items-center max-w-full gap-2">
+        <h1 className="text-lg sm:text-2xl font-bold">اختبار الانتباه البصري 2</h1>
+        <Button variant="outline" size="sm" onClick={() => router.push("/tests")} className="text-xs sm:text-sm">
           الرجوع لقائمة الاختبارات
         </Button>
       </div>
@@ -546,7 +546,7 @@ export default function FaceRecognitionTest() {
             <div className="mt-6 max-w-4xl relative mx-auto bg-white rounded-lg overflow-hidden p-4">
               {/* Mixed grid: shuffled correct and incorrect faces */}
               <div>
-                <div className="grid grid-cols-10 gap-3">
+                <div className="grid grid-cols-5 sm:grid-cols-7 md:grid-cols-10 gap-2 sm:gap-3">
                   {testImages.map((image) => {
                     const selected = selectedImages.has(image.id);
                     const fb = feedback[image.id];
@@ -557,7 +557,7 @@ export default function FaceRecognitionTest() {
                         disabled={!isTestActive || selected || testCompleted}
                         aria-pressed={selected}
                         aria-label={`وجه رقم ${image.id} - ${image.emotion} (folder ${image.folder})`}
-                        className={`relative w-20 h-20 border-2 rounded-lg transition-all duration-200 p-0
+                        className={`relative w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 border-2 rounded-lg transition-all duration-200 p-0
                           ${
                             selected
                               ? fb === "correct"

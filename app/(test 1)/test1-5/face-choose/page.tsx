@@ -554,10 +554,10 @@ export default function FaceRecognitionTest({
     const { correct, incorrect, ignored } = calculateResults();
 
     return (
-      <div className="min-h-screen bg-background p-8" dir="rtl">
+      <div className="min-h-screen bg-background p-4 md:p-8" dir="rtl">
         <div className="max-w-4xl mx-auto">
           <div className="flex justify-between items-center gap-4 mb-8">
-            <h1 className="text-2xl font-bold">الاختبار الخامس: إختبار الذاكرة البصرية 2</h1>
+            <h1 className="text-xl sm:text-2xl font-bold">الاختبار الخامس: إختبار الذاكرة البصرية 2</h1>
             <Button variant="outline" onClick={handleBack} className="flex items-center gap-2">
               <ArrowLeft className="h-4 w-4 ml-1" />
               <span>الرجوع لقائمة الاختبارات</span>
@@ -577,7 +577,7 @@ export default function FaceRecognitionTest({
           </div>
 
           <div className="text-center mb-8">
-            <div className="flex justify-center gap-8 mb-6">
+            <div className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8 mb-6">
               {currentPhotos.map((photoSrc, index) => (
                 <div key={index} className="flex flex-col items-center">
                   <div
@@ -596,7 +596,7 @@ export default function FaceRecognitionTest({
                     <img
                       src={photoSrc || "/placeholder.svg"}
                       alt={`صورة خيار ${index + 1}`}
-                      className="w-48 h-48 object-cover rounded-lg"
+                      className="w-28 h-28 sm:w-36 sm:h-36 md:w-48 md:h-48 object-cover rounded-lg"
                     />
                   </div>
                   <span className="text-lg font-semibold mt-2">
