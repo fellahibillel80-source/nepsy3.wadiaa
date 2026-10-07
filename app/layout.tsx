@@ -6,8 +6,8 @@ import { GenderThemeProvider } from "@/components/gender-theme-provider"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "NEPSY-II Assessment - تقييم نيبسي الثاني",
-  description: "NEPSY-II Neuropsychological Assessment for Children",
+  title: "ÉFLo(IMC) | النيبسي التفاعلية للأطفال",
+  description: "ÉFLo(IMC) - Évaluation des fonctions cognitives et du langage oral chez les enfants atteints d'IMC",
   generator: "v0.app",
 }
 
