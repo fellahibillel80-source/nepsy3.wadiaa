@@ -28,7 +28,7 @@ interface TestResult {
 
 export default function FaceRecognitionTest({
   onBack,
-}: FaceRecognitionTestProps): JSX.Element {
+}: FaceRecognitionTestProps) {
   const router = useRouter();
   const handleBack = onBack || (() => router.push("/tests"));
   // phases
@@ -78,7 +78,7 @@ export default function FaceRecognitionTest({
         "/visual-memory/photos experimentales/Planche 1/WhatsApp Image 2026-07-01 at 3.25.43 PM (1).jpeg",
         "/visual-memory/photos experimentales/Planche 1/WhatsApp Image 2026-07-01 at 3.25.43 PM.jpeg"
       ],
-      correctSrc: "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.38 PM (1).jpeg"
+      correctSrc: "/visual-memory/photos experimentales/Planche 1/WhatsApp Image 2026-07-01 at 3.25.42 PM.jpeg"
     },
     {
       plancheNum: 2,
@@ -87,7 +87,7 @@ export default function FaceRecognitionTest({
         "/visual-memory/photos experimentales/Planche 2/WhatsApp Image 2026-07-01 at 3.26.09 PM (2).jpeg",
         "/visual-memory/photos experimentales/Planche 2/WhatsApp Image 2026-07-01 at 3.26.09 PM.jpeg"
       ],
-      correctSrc: "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.39 PM (5).jpeg"
+      correctSrc: "/visual-memory/photos experimentales/Planche 2/WhatsApp Image 2026-07-01 at 3.26.09 PM (1).jpeg"
     },
     {
       plancheNum: 3,
@@ -96,7 +96,7 @@ export default function FaceRecognitionTest({
         "/visual-memory/photos experimentales/Planche 3/WhatsApp Image 2026-07-01 at 3.26.35 PM (2).jpeg",
         "/visual-memory/photos experimentales/Planche 3/WhatsApp Image 2026-07-01 at 3.26.35 PM.jpeg"
       ],
-      correctSrc: "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.40 PM.jpeg"
+      correctSrc: "/visual-memory/photos experimentales/Planche 3/WhatsApp Image 2026-07-01 at 3.26.35 PM (1).jpeg"
     },
     {
       plancheNum: 4,
@@ -105,7 +105,7 @@ export default function FaceRecognitionTest({
         "/visual-memory/photos experimentales/Planche 4/WhatsApp Image 2026-07-01 at 3.27.37 PM (2).jpeg",
         "/visual-memory/photos experimentales/Planche 4/WhatsApp Image 2026-07-01 at 3.27.37 PM.jpeg"
       ],
-      correctSrc: "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.38 PM (4).jpeg"
+      correctSrc: "/visual-memory/photos experimentales/Planche 4/WhatsApp Image 2026-07-01 at 3.27.37 PM.jpeg"
     },
     {
       plancheNum: 5,
@@ -114,7 +114,7 @@ export default function FaceRecognitionTest({
         "/visual-memory/photos experimentales/Planche 5/WhatsApp Image 2026-07-01 at 3.28.03 PM (1).jpeg",
         "/visual-memory/photos experimentales/Planche 5/WhatsApp Image 2026-07-01 at 3.28.03 PM.jpeg"
       ],
-      correctSrc: "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.39 PM.jpeg"
+      correctSrc: "/visual-memory/photos experimentales/Planche 5/WhatsApp Image 2026-07-01 at 3.28.03 PM (1).jpeg"
     },
     {
       plancheNum: 6,
@@ -123,7 +123,7 @@ export default function FaceRecognitionTest({
         "/visual-memory/photos experimentales/Planche 6/WhatsApp Image 2026-07-01 at 3.28.39 PM (2).jpeg",
         "/visual-memory/photos experimentales/Planche 6/WhatsApp Image 2026-07-01 at 3.28.39 PM.jpeg"
       ],
-      correctSrc: "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.38 PM.jpeg"
+      correctSrc: "/visual-memory/photos experimentales/Planche 6/WhatsApp Image 2026-07-01 at 3.28.39 PM (1).jpeg"
     },
     {
       plancheNum: 7,
@@ -132,7 +132,7 @@ export default function FaceRecognitionTest({
         "/visual-memory/photos experimentales/Planche 7/WhatsApp Image 2026-07-01 at 3.29.05 PM (2).jpeg",
         "/visual-memory/photos experimentales/Planche 7/WhatsApp Image 2026-07-01 at 3.29.05 PM.jpeg"
       ],
-      correctSrc: "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.40 PM (3).jpeg"
+      correctSrc: "/visual-memory/photos experimentales/Planche 7/WhatsApp Image 2026-07-01 at 3.29.05 PM (1).jpeg"
     },
     {
       plancheNum: 8,
@@ -141,7 +141,7 @@ export default function FaceRecognitionTest({
         "/visual-memory/photos experimentales/Planche 8/WhatsApp Image 2026-07-01 at 3.29.41 PM.jpeg",
         "/visual-memory/photos experimentales/Planche 8/WhatsApp Image 2026-07-01 at 3.29.42 PM.jpeg"
       ],
-      correctSrc: "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.40 PM (2).jpeg"
+      correctSrc: "/visual-memory/photos experimentales/Planche 8/WhatsApp Image 2026-07-01 at 3.29.41 PM.jpeg"
     },
     {
       plancheNum: 9,
@@ -150,7 +150,7 @@ export default function FaceRecognitionTest({
         "/visual-memory/photos experimentales/Planche 9/WhatsApp Image 2026-07-01 at 3.30.59 PM (2).jpeg",
         "/visual-memory/photos experimentales/Planche 9/WhatsApp Image 2026-07-01 at 3.30.59 PM.jpeg"
       ],
-      correctSrc: "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.39 PM (2).jpeg"
+      correctSrc: "/visual-memory/photos experimentales/Planche 9/WhatsApp Image 2026-07-01 at 3.30.59 PM (1).jpeg"
     },
     {
       plancheNum: 10,
@@ -159,7 +159,7 @@ export default function FaceRecognitionTest({
         "/visual-memory/photos experimentales/Planche 10/WhatsApp Image 2026-07-01 at 3.31.23 PM (1).jpeg",
         "/visual-memory/photos experimentales/Planche 10/WhatsApp Image 2026-07-01 at 3.31.23 PM (2).jpeg"
       ],
-      correctSrc: "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.40 PM (4).jpeg"
+      correctSrc: "/visual-memory/photos experimentales/Planche 10/WhatsApp Image 2026-07-01 at 3.31.23 PM.jpeg"
     },
     {
       plancheNum: 11,
@@ -168,7 +168,7 @@ export default function FaceRecognitionTest({
         "/visual-memory/photos experimentales/Planche 11/WhatsApp Image 2026-07-01 at 3.31.44 PM (2).jpeg",
         "/visual-memory/photos experimentales/Planche 11/WhatsApp Image 2026-07-01 at 3.31.44 PM.jpeg"
       ],
-      correctSrc: "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.39 PM (4).jpeg"
+      correctSrc: "/visual-memory/photos experimentales/Planche 11/WhatsApp Image 2026-07-01 at 3.31.44 PM (1).jpeg"
     },
     {
       plancheNum: 12,
@@ -177,7 +177,7 @@ export default function FaceRecognitionTest({
         "/visual-memory/photos experimentales/Planche 12/WhatsApp Image 2026-07-01 at 3.33.26 PM (2).jpeg",
         "/visual-memory/photos experimentales/Planche 12/WhatsApp Image 2026-07-01 at 3.33.26 PM.jpeg"
       ],
-      correctSrc: "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.38 PM (2).jpeg"
+      correctSrc: "/visual-memory/photos experimentales/Planche 12/WhatsApp Image 2026-07-01 at 3.33.26 PM (1).jpeg"
     },
     {
       plancheNum: 13,
@@ -186,7 +186,7 @@ export default function FaceRecognitionTest({
         "/visual-memory/photos experimentales/Planche 13/WhatsApp Image 2026-07-01 at 3.34.36 PM (2).jpeg",
         "/visual-memory/photos experimentales/Planche 13/WhatsApp Image 2026-07-01 at 3.34.36 PM.jpeg"
       ],
-      correctSrc: "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.39 PM (1).jpeg"
+      correctSrc: "/visual-memory/photos experimentales/Planche 13/WhatsApp Image 2026-07-01 at 3.34.36 PM (2).jpeg"
     },
     {
       plancheNum: 14,
@@ -195,7 +195,7 @@ export default function FaceRecognitionTest({
         "/visual-memory/photos experimentales/Planche 14/WhatsApp Image 2026-07-01 at 3.35.01 PM (2).jpeg",
         "/visual-memory/photos experimentales/Planche 14/WhatsApp Image 2026-07-01 at 3.35.01 PM.jpeg"
       ],
-      correctSrc: "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.39 PM (3).jpeg"
+      correctSrc: "/visual-memory/photos experimentales/Planche 14/WhatsApp Image 2026-07-01 at 3.35.01 PM (1).jpeg"
     },
     {
       plancheNum: 15,
@@ -204,7 +204,7 @@ export default function FaceRecognitionTest({
         "/visual-memory/photos experimentales/Planche 15/WhatsApp Image 2026-07-01 at 3.35.36 PM.jpeg",
         "/visual-memory/photos experimentales/Planche 15/WhatsApp Image 2026-07-01 at 3.35.37 PM.jpeg"
       ],
-      correctSrc: "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.40 PM (1).jpeg"
+      correctSrc: "/visual-memory/photos experimentales/Planche 15/WhatsApp Image 2026-07-01 at 3.35.36 PM.jpeg"
     },
     {
       plancheNum: 16,
@@ -213,7 +213,7 @@ export default function FaceRecognitionTest({
         "/visual-memory/photos experimentales/Planche 16/WhatsApp Image 2026-07-01 at 3.36.00 PM (1).jpeg",
         "/visual-memory/photos experimentales/Planche 16/WhatsApp Image 2026-07-01 at 3.36.00 PM.jpeg"
       ],
-      correctSrc: "/visual-memory/photos cibles/WhatsApp Image 2026-07-01 at 3.20.38 PM (3).jpeg"
+      correctSrc: "/visual-memory/photos experimentales/Planche 16/WhatsApp Image 2026-07-01 at 3.35.59 PM.jpeg"
     }
   ];
 
@@ -260,16 +260,7 @@ export default function FaceRecognitionTest({
     const currentPlanche = planches[round];
     if (!currentPlanche) return;
 
-    const arr = [...currentPlanche.options];
-    // shuffle positions
-    for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      const tmp = arr[i];
-      arr[i] = arr[j];
-      arr[j] = tmp;
-    }
-
-    setCurrentPhotos(arr);
+    setCurrentPhotos([...currentPlanche.options]);
     setTargetPhotoSrc(currentPlanche.correctSrc);
   };
 
@@ -577,39 +568,24 @@ export default function FaceRecognitionTest({
           </div>
 
           <div className="text-center mb-8">
-            <div className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8 mb-6">
+            <div className="flex justify-center gap-8 mb-6">
               {currentPhotos.map((photoSrc, index) => (
-                <div key={index} className="flex flex-col items-center">
-                  <div
-                    role="button"
-                    tabIndex={0}
-                    onClick={() => handleResponse(photoSrc)}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" || e.key === " ") {
-                        e.preventDefault();
-                        handleResponse(photoSrc);
-                      }
-                    }}
-                    className="p-2 bg-white border-2 border-gray-300 hover:border-brand-500 hover:bg-brand-50 rounded-lg cursor-pointer"
-                    style={{ display: "inline-block" }}
-                  >
-                    <img
-                      src={photoSrc || "/placeholder.svg"}
-                      alt={`صورة خيار ${index + 1}`}
-                      className="w-28 h-28 sm:w-36 sm:h-36 md:w-48 md:h-48 object-cover rounded-lg"
-                    />
-                  </div>
-                  <span className="text-lg font-semibold mt-2">
-                    {index + 1}
-                  </span>
-                </div>
+                <button
+                  key={index}
+                  onClick={() => handleResponse(photoSrc)}
+                  disabled={introPlaying}
+                  className={`relative bg-white rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all p-3 border-4 ${
+                    introPlaying ? "opacity-60 cursor-not-allowed" : "cursor-pointer"
+                  }`}
+                  style={{ width: "160px" }}
+                >
+                  <img
+                    src={photoSrc || "/placeholder.svg"}
+                    alt={`خيارات التعرف ${index + 1}`}
+                    className="w-full h-40 object-cover rounded-md"
+                  />
+                </button>
               ))}
-            </div>
-          </div>
-
-          <div className="text-center">
-            <div className="w-16 h-16 mx-auto border-4 border-purple-500 rounded-full flex items-center justify-center text-xl font-bold">
-              {timeRemaining}
             </div>
           </div>
         </div>
